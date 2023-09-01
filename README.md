@@ -1,5 +1,5 @@
-# proyec-integrador
-proyecto integrador
+# laberinto_ruby_py
+proyecto integrador 
 
 # Pedir el nombre del jugador
 
