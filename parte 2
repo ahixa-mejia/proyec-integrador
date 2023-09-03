@@ -1,0 +1,28 @@
+#Investigarcómo leer un caracter del teclado
+import readchar
+
+def main():
+    caracter = readchar.readchar()
+    print(f"El carácter que presionaste es: {caracter}")
+
+if __name__ == "__main__":
+    main()
+#Escribir un programa que corra un bucle infinito leyendo e imprimiento las teclas 
+y sólo terminará cuando se presione la tecla ↑ indicada como UP.
+
+import readchar
+
+def main():
+    print("Presiona la tecla 'UP' para detener el programa.")
+
+    while True :
+        char = readchar.readkey()
+        if char == '\x1b[A':  # '\x1b[A' es el código de escape de la tecla "↑"
+          print("Tecla 'UP' presionada. Saliendo del programa.")
+            
+        else:
+            print(f"Tecla '{char}' presionada.")
+
+
+if __name__ == "__main__":
+    main()
