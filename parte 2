@@ -19,7 +19,7 @@ def main():
         char = readchar.readkey()
         if char == '\x1b[A':  # '\x1b[A' es el código de escape de la tecla "↑"
           print("Tecla 'UP' presionada. Saliendo del programa.")
-            
+            break
         else:
             print(f"Tecla '{char}' presionada.")
 
