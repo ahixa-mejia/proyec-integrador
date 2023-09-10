@@ -1,0 +1,18 @@
+import os
+
+def clear_terminal():
+    # Borra la terminal según el sistema operativo (Windows o Unix)
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def main():
+    n = 0  # Inicializamos el número en 0
+    
+    while n <= 50:
+        # Esperar hasta que se presione 'n' y luego presionar Enter
+        input("Presiona 'n' y luego Enter para continuar...")
+        
+        clear_terminal()  # Borra la terminal
+        
+        print(f"Nuevo número: {n}")
+        n += 1
+main()
