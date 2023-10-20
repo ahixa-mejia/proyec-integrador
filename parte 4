@@ -1,0 +1,75 @@
+import os
+from typing import List, Tuple
+
+PARED_CHAR = '#'
+CAMINO_CHAR = '.'
+JUGADOR_CHAR = 'P'
+
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def print_maze(maze):
+    clear_screen()
+    for row in maze:
+        print(''.join(row))
+    print()
+
+def main_loop(maze, start, end):
+    px, py = start
+
+    while (px, py) != end:
+        maze[py][px] = JUGADOR_CHAR
+        print_maze(maze)
+
+        # Leer la tecla del usuario
+        move = input("Use las teclas de flecha para mover al jugador (q para salir): ")
+
+        if move == 'q':
+            break
+        elif move == 'w' and py > 0 and maze[py - 1][px] != PARED_CHAR:
+            maze[py][px], py = CAMINO_CHAR, py - 1
+        elif move == 's' and py < len(maze) - 1 and maze[py + 1][px] != PARED_CHAR:
+            maze[py][px], py = CAMINO_CHAR, py + 1
+        elif move == 'a' and px > 0 and maze[py][px - 1] != PARED_CHAR:
+            maze[py][px], px = CAMINO_CHAR, px - 1
+        elif move == 'd' and px < len(maze[0]) - 1 and maze[py][px] != PARED_CHAR:
+            maze[py][px], px = CAMINO_CHAR, px + 1
+
+        print("¡Has llegado al final del laberinto!")
+
+if __name__ == "__main__":
+    # Ejemplo de uso
+    maze_str = """
+ P...###########################
+ ......#..#...........#........#
+ #..#..#..#..####..####..####..#
+ #..#.....#..#.....#.....#.....#
+ #######..#..#..#..#..####..####
+ #..#........#..#........#.....#
+ #..#..####..#..#..##########..#
+ #.....#..#..#..#...........#..#
+ #######..#######..#..#..####..#
+ #..#.....#.....#..#..#.....#..#
+ #..#..#..#..#..#..##########..#
+ #.....#.....#..#..#........#..#
+ #######..#..#..#..#..##########
+ #..#.....#..#..............#..#
+ #..#..##########..#..####..#..#
+ #..#..#..#........#.....#.....#
+ #..#..#..#..#..#..#######..####
+ #........#..#..#..#..#........#
+ #..####..##########..#..#######
+ #..#.................#........
+ #############################
+    """
+
+    # Convertir la cadena del laberinto a una matriz de caracteres
+maze_list = [list(row.strip()) for row in maze_str.split("\n") if row.strip()]
+
+    # Encontrar las coordenadas de inicio y fin
+start_position = (0, 0)  # Coordenadas del punto de inicio (ejemplo)
+end_position = (20, 1)  # Coordenadas del punto final (ejemplo)
+
+    # Ejecutar el bucle principal
+main_loop(maze_list, start_position, end_position)
+
