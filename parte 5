@@ -1,0 +1,64 @@
+import os
+import random
+import readchar
+from readchar import key
+
+class Juego:
+    def __init__(self, nb_jugador, mapa, posicion_inicial, posision_final):
+        self.nb_jugador = nb_jugador
+        self.mapa = mapa
+        self.posicion_inicial = posicion_inicial
+        self.posicion_final = posision_final
+
+    def cadena_o_matriz(self, mapa_str):
+        filas = mapa_str.strip().split('\n')
+        laberinto = []
+        for fila in filas:
+            caracteres = list(fila)
+            laberinto.append(caracteres)
+            return laberinto
+        
+    def limpiar_pantalla(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
+    def mostrar_laberinto(self):
+        self.limpiar_pantalla()
+        for fila in self.mapa:
+            fila_sin_coordenadas = ''.join(['.' if c.isdigit() else c for c in fila])
+            print(fila_sin_coordenadas)
+        print("presiona 'q' en cualquier momento para salir del juego.")
+    
+    def main_loop(self):
+        px, py = self.posicion_inicial
+        mapa_alto = len(self.mapa)
+        mapa_ancho = len(self.mapa[0])
+
+        while True:
+            self.mapa[py][px] = 'p'
+            self.mostrar_laberinto()
+            tecla = readchar.readkey()
+
+            if tecla == 'q':
+                print(f"saliendo del juego, {self.nb_jugador}...")
+                return
+            if tecla == key.UP:
+                if py > 0 and self.mapa[py -1][px] != '#':
+                    self.mapa[py][px] = '.'
+                    py -= 1
+            elif tecla == key.DOWN:
+                if py < mapa_alto - 1 and self.mapa[py + 1][px] != '#':
+                    self.mapa[py][px] = '.'
+                    py += 1
+            elif tecla == key.LEFT:
+                if px > 0 and self.mapa[py][px - 1] != '#':
+                    self.mapa[py][px] = '.'
+                    py -= 1
+            elif tecla == key.RIGHT:
+                if px < mapa_ancho - 1 and self.mapa[py][px + 1] != '#':
+                    self.mapa[py][px] = '.'
+                    px += 1
+
+            if (px,py) == self.posicion_final:
+                print("Ganaste!")
+                self.mostrar_laberinto()
+                return
+            
