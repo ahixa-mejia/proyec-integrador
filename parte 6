@@ -1,0 +1,22 @@
+"""
+Reescribir la función que convierte el laberinto de cadena a matriz para que en vez de usar un bucle,
+haga uso de la función map
+"""
+def cadena_a_matriz(self, mapa_str):
+    filas = mapa_str.strip().split('\n')
+    laberinto = list(map(list, filas))
+    return laberinto
+"""
+Reescribir la función que lee el mapa usando la función readlines para leerlo todo en una sola operación, cargar las coordenadas y 
+usar reduce para concatenar las filas leídas en una sola cadena,
+en otras palabras sustituir el bucle de lectura del mapa en forma de candena para usar la función reduce.
+"""
+from functools import reduce
+
+def cargar_mapa(self, archivo_mapa):
+    lineas = archivo_mapa.readlines()
+    mapa_str = reduce(lambda x, y: x + y, lineas)
+    inicio, fin = self.encontrar_inicio_y_fin(mapa_str)
+    self.mapa = self.cadena_a_matriz(mapa_str)
+    self.posicion_inicial = inicio
+    self.posicion_final = fin
